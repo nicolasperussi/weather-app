@@ -4,7 +4,7 @@ import SearchBox from "./components/SearchBox";
 import Main from "./components/Main";
 const api = {
   key: "9e9248777c9e4cc3b1123729211703",
-  base: "http://api.weatherapi.com/v1/current.json?",
+  base: "https://api.weatherapi.com/v1/current.json?",
 };
 
 function App() {
