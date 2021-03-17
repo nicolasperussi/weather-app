@@ -76,6 +76,7 @@ function App() {
             country={weather.location.country}
             weather={weather.current.condition.text}
             temp={weather.current.temp_c}
+            weatherIcon={weather.current.condition.icon}
           />
         ) : (
           ""
