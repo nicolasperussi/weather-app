@@ -4,7 +4,7 @@ import SearchBox from "./components/SearchBox";
 import Main from "./components/Main";
 const api = {
   key: "9e9248777c9e4cc3b1123729211703",
-  base: "https://api.weatherapi.com/v1/current.json?",
+  base: "https://api.weatherapi.com/v1/forecast.json?",
 };
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
   const search = (evt) => {
     if (evt.key === "Enter") {
       console.log(query);
-      fetch(`${api.base}key=${api.key}&q=${query}&lang=pt`)
+      fetch(`${api.base}key=${api.key}&q=${query}`)
         .then((res) => res.json())
         .then((result) => {
           setWeather(result);
@@ -24,37 +24,26 @@ function App() {
     }
   };
 
-  const dateSetter = (date) => {
-    let months = [
-      "Janeiro",
-      "Fevereiro",
-      "Março",
-      "Abril",
-      "Maio",
-      "Junho",
-      "Julho",
-      "Agosto",
-      "Setembro",
-      "Outubro",
-      "Novembro",
-      "Dezembro",
-    ];
-    let days = [
-      "Domingo",
-      "Segunda-feira",
-      "Terça-feira",
-      "Quarta-feira",
-      "Quinta-feita",
-      "Sexta-feira",
-      "Sábado",
-    ];
+  const dateSetter = () => {
+    let date = new Date().toLocaleString("en-US", {
+      timeZone: `${weather.location.tz_id}`,
+    });
 
-    let weekday = days[date.getDay()];
-    let day = date.getDate();
-    let month = months[date.getMonth()];
-    let year = date.getFullYear();
+    date = Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(new Date(date));
 
-    return `${weekday}, ${day} de ${month} de ${year}`;
+    date = date.charAt(0).toUpperCase() + date.slice(1);
+
+    let time = new Date(weather.location.localtime).toLocaleTimeString();
+
+    return {
+      date: date,
+      hora: time,
+    };
   };
 
   return (
@@ -73,6 +62,7 @@ function App() {
           <Main
             dateSetter={dateSetter}
             city={weather.location.name}
+            region={weather.location.region}
             country={weather.location.country}
             weather={weather.current.condition.text}
             temp={weather.current.temp_c}

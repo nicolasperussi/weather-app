@@ -61,7 +61,7 @@ body {
 }
 
 .location {
-  width: 400px;
+  width: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,9 +72,18 @@ body {
   font-weight: 600;
 }
 
+.region {
+  margin: 10px;
+  font-weight: 300;
+}
+
 .date {
   font-weight: 400;
   margin: 0 0 20px 0;
+}
+
+.time {
+  margin: 10px 0;
 }
 
 .city,
@@ -122,6 +131,7 @@ body {
 
 .weatherIcon {
   width: 200px;
+  transition: all 0.4s ease-in-out;
 }
 
 .weather {
